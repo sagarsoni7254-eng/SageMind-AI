@@ -1,0 +1,2 @@
+help:
+	echo "SageMind AI"
