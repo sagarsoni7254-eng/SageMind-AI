@@ -1,23 +1,17 @@
 from fastapi import FastAPI
 
+from app.api.v1.health import router as health_router
+from app.core.config import settings
+from app.core.logging import logger, setup_logging
+
+setup_logging()
+
 app = FastAPI(
-    title="SageMind AI",
-    version="0.1.0",
+    title=settings.PROJECT_NAME,
+    version=settings.VERSION,
     description="AI-powered multi-agent stock research platform",
 )
 
+logger.info("🚀 SageMind AI backend started successfully.")
 
-@app.get("/")
-def root():
-    return {
-        "message": "Welcome to SageMind AI 🚀",
-        "status": "running",
-        "version": "0.1.0",
-    }
-
-
-@app.get("/health")
-def health():
-    return {
-        "status": "healthy",
-    }
+app.include_router(health_router)
