@@ -1,14 +1,21 @@
 from abc import ABC, abstractmethod
 
 from app.schemas.company_profile import CompanyProfile
+from app.schemas.stock_search_result import StockSearchResult
 
 
-class MarketDataProvider(ABC):
+class BaseProvider(ABC):
 
     @abstractmethod
-    def search_stock(self, query: str):
+    def get_company_profile(self, symbol: str) -> CompanyProfile:
+        """
+        Return detailed company profile.
+        """
         pass
 
     @abstractmethod
-    def company_profile(self, symbol: str) -> CompanyProfile:
+    def search_company(self, query: str) -> list[StockSearchResult]:
+        """
+        Search companies by name.
+        """
         pass

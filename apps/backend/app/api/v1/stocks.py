@@ -9,10 +9,30 @@ router = APIRouter(
 
 
 @router.get("/search")
-def search_stock(query: str):
-    return stock_service.search_stock(query)
+def search_company(query: str):
+    """
+    Search companies by name.
+    """
+    return stock_service.search_company(query)
 
 
 @router.get("/profile/{symbol}")
 def company_profile(symbol: str):
-    return stock_service.company_profile(symbol)
+    """
+    Get company profile.
+    """
+    return stock_service.get_company_profile(symbol)
+
+
+@router.get("/history/{symbol}")
+def historical_prices(
+    symbol: str,
+    period: str = "1mo",
+):
+    """
+    Get historical stock prices.
+    """
+    return stock_service.get_historical_prices(
+        symbol=symbol,
+        period=period,
+    )
